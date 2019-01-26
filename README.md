@@ -1,19 +1,34 @@
 # Gulp-Starter-App
 
-## Install Dependencies
+## Install
 
-npm install
+Some basic Git commands are:
 
-## Run all tasks
+```
+$ git clone https://github.com/mohamedsamara/Gulp-Starter-App.git
+$ cd project
+$ npm install
 
-gulp
+```
+
+## Start
+
+npm start
+
+## Simple build for production
+
+npm run build
 
 ## Watch all tasks & files
 
-gulp watch
+npm run watch
 
 ## Languages & tools
 
 - [Gulp](https://gulpjs.com/)
 
+- [PostCSS](https://postcss.org/)
+
 - [SASS](https://sass-lang.com/)
+
+- [LESS](http://lesscss.org/)

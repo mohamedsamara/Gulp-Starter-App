@@ -1,6 +1,11 @@
 # Dependencies
 node_modules
 
+# Production
+/dist
+
 # Cruft
 .DS_Store
 npm-debug.log
+.vscode
+

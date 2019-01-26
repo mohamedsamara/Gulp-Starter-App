@@ -4,15 +4,24 @@
   "description": "Gulp App Example",
   "main": "index.js",
   "scripts": {
+    "start": "gulp dev",
+    "build": "gulp build",
+    "clean": "gulp clean",
+    "watch": "gulp watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mohamedsamara/Gulp-Starter-App.git"
+    "url": "https://github.com/mohamedsamara/Gulp-Starter-App.git"
   },
   "keywords": [
     "gulp",
-    "sass"
+    "4",
+    "es6",
+    "sass",
+    "less",
+    "starter",
+    "boilerplate"
   ],
   "author": "Mohamed Samara (https://github.com/mohamedsamara)",
   "license": "ISC",
@@ -21,10 +30,36 @@
   },
   "homepage": "https://github.com/mohamedsamara/Gulp-Starter-App",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "autoprefixer": "^9.4.6",
+    "babelify": "^10.0.0",
+    "browser-sync": "^2.26.3",
+    "browserify": "^16.2.3",
+    "browserify-shim": "^3.8.14",
+    "cssnano": "^4.1.8",
+    "del": "^3.0.0",
     "gulp": "^4.0.0",
+    "gulp-cache": "^1.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^5.0.3",
+    "gulp-less": "^4.0.1",
+    "gulp-line-ending-corrector": "^1.0.3",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "gulp-uglify": "^3.0.1"
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-uglifycss": "^1.1.0",
+    "gulp-useref": "^3.1.6",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }
