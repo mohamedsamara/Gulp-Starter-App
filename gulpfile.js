@@ -230,8 +230,10 @@ function lessProd(done) {
 function cssDev(done) {
   gulp
     .src('src/css/*.css')
+    .pipe(sourcemaps.init())
     .pipe(postcss([autoprefixer(autoprefixerOptions), cssnano()]))
     .pipe(concat('styles.css'))
+    .pipe(sourcemaps.write({ includeContent: false }))
     .pipe(
       notify({
         title: 'SUCCESS: CSS concatenated...',
