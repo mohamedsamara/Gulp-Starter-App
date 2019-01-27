@@ -2,30 +2,30 @@
 
 /**************** Gulp.js 4 configuration ****************/
 
-const gulp = require('gulp');
-const gulpIf = require('gulp-if');
-const imagemin = require('gulp-imagemin');
-const cache = require('gulp-cache');
-const uglify = require('gulp-uglify');
-const notify = require('gulp-notify');
-const rename = require('gulp-rename');
-const minifycss = require('gulp-uglifycss');
-const sass = require('gulp-sass');
-const less = require('gulp-less');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
-const postcss = require('gulp-postcss');
-const sourcemaps = require('gulp-sourcemaps');
-const concat = require('gulp-concat');
-const browserSync = require('browser-sync').create();
-const lec = require('gulp-line-ending-corrector');
-const plumber = require('gulp-plumber');
-const del = require('del');
-const htmlreplace = require('gulp-html-replace');
-const source = require('vinyl-source-stream');
-const buffer = require('vinyl-buffer');
-const browserify = require('browserify');
-const babelify = require('babelify');
+const gulp = require('gulp'),
+  gulpIf = require('gulp-if'),
+  imagemin = require('gulp-imagemin'),
+  cache = require('gulp-cache'),
+  uglify = require('gulp-uglify'),
+  notify = require('gulp-notify'),
+  rename = require('gulp-rename'),
+  minifycss = require('gulp-uglifycss'),
+  sass = require('gulp-sass'),
+  less = require('gulp-less'),
+  autoprefixer = require('autoprefixer'),
+  cssnano = require('cssnano'),
+  postcss = require('gulp-postcss'),
+  sourcemaps = require('gulp-sourcemaps'),
+  concat = require('gulp-concat'),
+  browserSync = require('browser-sync').create(),
+  lec = require('gulp-line-ending-corrector'),
+  plumber = require('gulp-plumber'),
+  del = require('del'),
+  htmlreplace = require('gulp-html-replace'),
+  source = require('vinyl-source-stream'),
+  buffer = require('vinyl-buffer'),
+  browserify = require('browserify'),
+  babelify = require('babelify');
 
 const autoprefixerOptions = [
   'ie >= 10',
@@ -44,6 +44,7 @@ const browserSyncOptions = {
   server: {
     baseDir: './dist/'
   },
+  reloadOnRestart: true,
   open: true,
   injectChanges: true,
   port: 3000
@@ -181,7 +182,7 @@ function cssDev(done) {
 
 function scriptsDev() {
   return browserify({
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js'],
     entries: './src/js/main.js'
   })
     .transform(babelify, { presets: ['@babel/preset-env'] })
@@ -325,6 +326,8 @@ gulp.task(
     )
   )
 );
+
+// gulp.task('watch', gulp.series(clean, gulp.parallel(watch, server)));
 
 // npm run watch
 gulp.task('watch', gulp.parallel(watch, server));
