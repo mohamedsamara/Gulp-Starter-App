@@ -1,5 +1,6 @@
 # Dependencies
 node_modules
+package-lock.json
 
 # Production
 /dist
@@ -8,4 +9,5 @@ node_modules
 .DS_Store
 npm-debug.log
 .vscode
+
 

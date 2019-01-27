@@ -182,10 +182,12 @@ function cssDev(done) {
 
 function scriptsDev() {
   return browserify({
-    extensions: ['.js'],
+    extensions: ['.js', '.jsx'],
     entries: './src/js/main.js'
   })
-    .transform(babelify, { presets: ['@babel/preset-env'] })
+    .transform(babelify, {
+      presets: ['@babel/preset-env', '@babel/preset-react']
+    })
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
@@ -200,7 +202,9 @@ function scriptsProd() {
     extensions: ['.js', '.jsx'],
     entries: './src/js/main.js'
   })
-    .transform(babelify, { presets: ['@babel/preset-env'] })
+    .transform(babelify, {
+      presets: ['@babel/preset-env', '@babel/preset-react']
+    })
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(
@@ -326,8 +330,6 @@ gulp.task(
     )
   )
 );
-
-// gulp.task('watch', gulp.series(clean, gulp.parallel(watch, server)));
 
 // npm run watch
 gulp.task('watch', gulp.parallel(watch, server));

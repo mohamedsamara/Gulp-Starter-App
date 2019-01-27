@@ -1,3 +1,12 @@
-import App from './app.js';
+/**
+ *
+ * main.js
+ * This is the entry file for the application, only render App component.
+ */
 
-const app = new App();
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import App from './app';
+
+ReactDOM.render(<App />, document.getElementById('root'));

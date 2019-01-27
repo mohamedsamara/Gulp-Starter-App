@@ -27,6 +27,12 @@ npm run watch
 
 - [Gulp](https://gulpjs.com/)
 
+- [React](https://reactjs.org/)
+
+- [Browserify](http://browserify.org/)
+
+- [BrowserSync](https://www.browsersync.io/)
+
 - [PostCSS](https://postcss.org/)
 
 - [SASS](https://sass-lang.com/)
