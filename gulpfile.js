@@ -3,6 +3,7 @@
 /**************** Gulp.js 4 configuration ****************/
 
 const gulp = require('gulp');
+const gulpIf = require('gulp-if');
 const imagemin = require('gulp-imagemin');
 const cache = require('gulp-cache');
 const uglify = require('gulp-uglify');
@@ -20,6 +21,7 @@ const browserSync = require('browser-sync').create();
 const lec = require('gulp-line-ending-corrector');
 const plumber = require('gulp-plumber');
 const del = require('del');
+const htmlreplace = require('gulp-html-replace');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 const browserify = require('browserify');
@@ -128,45 +130,6 @@ function sassDev(done) {
   done();
 }
 
-// Compile Sass production
-function sassProd(done) {
-  gulp
-    .src('src/sass/*.scss')
-    .pipe(plumber())
-    .pipe(
-      sass({
-        errLogToConsole: true,
-        outputStyle: 'compressed',
-        precision: 10
-      })
-    )
-    .pipe(postcss([autoprefixer(autoprefixerOptions), cssnano()]))
-    .pipe(concat('sass.css'))
-    .on('error', console.error.bind(console))
-    .pipe(
-      minifycss({
-        maxLineLen: 80,
-        uglyComments: true
-      })
-    )
-    .pipe(
-      notify({
-        title: 'Build Successfully',
-        message: 'Sass file compiled: "<%= file.relative %>"',
-        icon: './src/images/success-icon.png'
-      })
-    )
-    .pipe(plumber.stop())
-    .pipe(
-      rename({
-        suffix: '.min'
-      })
-    )
-    .pipe(lec({ verbose: false, eolc: 'LF', encoding: 'utf8' }))
-    .pipe(gulp.dest('dist/css'));
-  done();
-}
-
 // Compile Less Development
 function lessDev(done) {
   gulp
@@ -196,36 +159,6 @@ function lessDev(done) {
   done();
 }
 
-// Compile Less Production
-function lessProd(done) {
-  gulp
-    .src('src/less/*.less')
-    .pipe(less({ compress: true }))
-    .pipe(postcss([autoprefixer(autoprefixerOptions), cssnano()]))
-    .pipe(concat('less.css'))
-    .on('error', console.error.bind(console))
-    .pipe(
-      minifycss({
-        maxLineLen: 80,
-        uglyComments: true
-      })
-    )
-    .pipe(
-      notify({
-        title: 'Build Successfully',
-        message: 'Less file compiled: "<%= file.relative %>"',
-        icon: './src/images/success-icon.png'
-      })
-    )
-    .pipe(
-      rename({
-        suffix: '.min'
-      })
-    )
-    .pipe(gulp.dest('dist/css'));
-  done();
-}
-
 // CSS Development
 function cssDev(done) {
   gulp
@@ -237,7 +170,7 @@ function cssDev(done) {
     .pipe(
       notify({
         title: 'SUCCESS: CSS concatenated...',
-        message: 'Sass file concatenated: "<%= file.relative %>"',
+        message: 'CSS file concatenated: "<%= file.relative %>"',
         icon: './src/images/success-icon.png',
         timeout: 3
       })
@@ -246,55 +179,94 @@ function cssDev(done) {
   done();
 }
 
-// CSS production
-function cssProd(done) {
-  gulp
-    .src('src/css/*.css')
-    .pipe(postcss([autoprefixer(autoprefixerOptions), cssnano()]))
-    .pipe(concat('styles.css'))
-    .on('error', console.error.bind(console))
+function scriptsDev() {
+  return browserify({
+    extensions: ['.js', '.jsx'],
+    entries: './src/js/main.js'
+  })
+    .transform(babelify, { presets: ['@babel/preset-env'] })
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('./dist/js/'))
+    .pipe(browserSync.stream());
+}
+
+function scriptsProd() {
+  return browserify({
+    extensions: ['.js', '.jsx'],
+    entries: './src/js/main.js'
+  })
+    .transform(babelify, { presets: ['@babel/preset-env'] })
+    .bundle()
+    .pipe(source('bundle.js'))
     .pipe(
-      minifycss({
-        maxLineLen: 80,
-        uglyComments: true
+      rename({
+        extname: '.min.js'
       })
+    )
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/js/'))
+    .pipe(browserSync.stream());
+}
+
+// Replace HTML block for Js and Css file upon build and copy to /dist
+function replaceHtmlBlock(done) {
+  gulp
+    .src(['./src/*.html'])
+    .pipe(
+      htmlreplace({
+        js: 'js/bundle.min.js',
+        css: 'css/main.min.css'
+      })
+    )
+    .pipe(gulp.dest('dist/'));
+  done();
+}
+
+// compile & concatenate & minify sass, less, css files for production
+function bundleCSS(done) {
+  gulp
+    .src(['src/sass/*.scss', 'src/less/*.less', 'src/css/*.css'])
+    .pipe(plumber())
+    //compile only if it is sass file
+    .pipe(
+      gulpIf(
+        '*.scss',
+        sass({
+          errLogToConsole: true,
+          outputStyle: 'compressed',
+          precision: 10
+        })
+      )
+    )
+    .pipe(gulpIf('*.less', less({ compress: true }))) //compile only if it is less file
+    .pipe(postcss([autoprefixer(autoprefixerOptions), cssnano()]))
+    .on('error', console.error.bind(console))
+    .pipe(concat('main.css'))
+    .pipe(
+      minifycss({ keepSpecialComments: 0, maxLineLen: 80, uglyComments: true })
     )
     .pipe(
       notify({
         title: 'Build Successfully',
-        message: 'Css file minified: "<%= file.relative %>"',
+        message:
+          'sass & less compiled and bundled in one file: "<%= file.relative %>"',
         icon: './src/images/success-icon.png'
       })
     )
+    .pipe(plumber.stop())
     .pipe(
       rename({
         suffix: '.min'
       })
     )
+    .pipe(lec({ verbose: false, eolc: 'LF', encoding: 'utf8' }))
     .pipe(gulp.dest('dist/css'));
-  done();
-}
 
-function scripts(done) {
-  ['main.js'].map(function(entry) {
-    return browserify({
-      entries: ['./src/js/' + entry]
-    })
-      .transform(babelify, { presets: ['@babel/preset-env'] })
-      .bundle()
-      .pipe(source(entry))
-      .pipe(
-        rename({
-          extname: '.min.js'
-        })
-      )
-      .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(uglify())
-      .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest('./dist/js/'))
-      .pipe(browserSync.stream());
-  });
   done();
 }
 
@@ -311,11 +283,11 @@ function watch(done) {
   gulp.watch('./src/*.html', gulp.series(copyHtml, reload));
   gulp.watch('./src/fonts/**/*.*', gulp.series(fonts, reload));
   gulp.watch('./src/images/**/*.*', gulp.series(copyImage, reload));
-  gulp.watch('./src/js/**/*.js', scripts, reload);
-  gulp.src('./dist/js/' + 'main.min.js').pipe(
+  gulp.watch('./src/js/**/*.js', scriptsDev, reload);
+  gulp.src('./dist/js/' + 'bundle.js').pipe(
     notify({
       title: 'Gulp is Watching Successfully',
-      message: 'File: "<%= file.relative %> compiled"',
+      message: 'File: "<%= file.relative %> is being watched"',
       icon: './src/images/smiling-icon.png',
       timeout: 3
     })
@@ -330,7 +302,7 @@ gulp.task(
     copyHtml,
     copyImage,
     fonts,
-    scripts,
+    scriptsDev,
     sassDev,
     lessDev,
     cssDev,
@@ -344,13 +316,12 @@ gulp.task(
   gulp.series(
     clean,
     gulp.parallel(
-      copyHtml,
+      replaceHtmlBlock,
       imageMin,
       fonts,
-      scripts,
-      sassProd,
-      cssProd,
-      lessProd
+      scriptsProd,
+      bundleCSS,
+      server
     )
   )
 );
