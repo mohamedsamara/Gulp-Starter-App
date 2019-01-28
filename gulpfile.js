@@ -121,8 +121,7 @@ function sassDev(done) {
       notify({
         title: 'SUCCESS: Sass Compiled...',
         message: 'Sass file compiled: "<%= file.relative %>"',
-        icon: './src/images/success-icon.png',
-        timeout: 3
+        icon: './src/images/success-icon.png'
       })
     )
     .pipe(plumber.stop())
@@ -152,8 +151,7 @@ function lessDev(done) {
       notify({
         title: 'SUCCESS: Less Compiled...',
         message: 'Less file compiled: "<%= file.relative %>"',
-        icon: './src/images/success-icon.png',
-        timeout: 3
+        icon: './src/images/success-icon.png'
       })
     )
     .pipe(gulp.dest('dist/css'));
@@ -172,8 +170,7 @@ function cssDev(done) {
       notify({
         title: 'SUCCESS: CSS concatenated...',
         message: 'CSS file concatenated: "<%= file.relative %>"',
-        icon: './src/images/success-icon.png',
-        timeout: 3
+        icon: './src/images/success-icon.png'
       })
     )
     .pipe(gulp.dest('dist/css'));
@@ -183,7 +180,7 @@ function cssDev(done) {
 function scriptsDev() {
   return browserify({
     extensions: ['.js', '.jsx'],
-    entries: './src/js/main.js'
+    entries: './src/main.js'
   })
     .transform(babelify, {
       presets: ['@babel/preset-env', '@babel/preset-react']
@@ -200,7 +197,7 @@ function scriptsDev() {
 function scriptsProd() {
   return browserify({
     extensions: ['.js', '.jsx'],
-    entries: './src/js/main.js'
+    entries: './src/main.js'
   })
     .transform(babelify, {
       presets: ['@babel/preset-env', '@babel/preset-react']
@@ -288,13 +285,12 @@ function watch(done) {
   gulp.watch('./src/*.html', gulp.series(copyHtml, reload));
   gulp.watch('./src/fonts/**/*.*', gulp.series(fonts, reload));
   gulp.watch('./src/images/**/*.*', gulp.series(copyImage, reload));
-  gulp.watch('./src/js/**/*.js', scriptsDev, reload);
+  gulp.watch('./src/**/*.js', scriptsDev, reload);
   gulp.src('./dist/js/' + 'bundle.js').pipe(
     notify({
       title: 'Gulp is Watching Successfully',
       message: 'File: "<%= file.relative %> is being watched"',
-      icon: './src/images/smiling-icon.png',
-      timeout: 3
+      icon: './src/images/smiling-icon.png'
     })
   );
   done();
