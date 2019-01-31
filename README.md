@@ -1,4 +1,4 @@
-# Gulp-Starter-App
+# Gulp Starter App
 
 ## Install
 
