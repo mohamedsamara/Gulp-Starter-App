@@ -1,61 +1,14 @@
-// sass styles
+// Boilerplate Theme
 
-// start layout styles
-* {
-  text-decoration: none;
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-  outline: none;
-  box-sizing: border-box;
-}
+// Import utilities
+@import 'core/utils/fonts';
+@import 'core/utils/reset';
 
-body {
-  background-color: #ccc;
-  font-size: 20px;
-}
+// Import Bootstrap source files
+@import 'node_modules/bootstrap/scss/bootstrap';
 
-// end layout styles
+// Import core styles
+@import 'core/core';
 
-// start todo styles
-.todo {
-  margin: 0 auto;
-  width: 960px;
-  background-color: #fff;
-}
-
-.todo-list {
-  padding: 20px;
-}
-
-.todo-item {
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  padding: 10px;
-
-  span {
-    color: #322958;
-  }
-
-  p {
-    margin: 15px 0px;
-    color: #c3b725;
-  }
-}
-// end todo styles
-
-// start miscellaneous styles
-.loading-indicator {
-  color: #322958;
-  padding: 10px;
-  display: block;
-  text-align: center;
-}
-
-.error {
-  color: #322958;
-  padding: 10px;
-  display: block;
-  text-align: center;
-}
-// end miscellaneous styles
+// Import custom styles
+@import 'custom';

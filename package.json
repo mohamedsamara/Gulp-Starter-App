@@ -66,6 +66,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "bootstrap": "^4.2.1",
     "connected-react-router": "^6.2.2",
     "cross-fetch": "^3.0.0",
     "history": "^4.7.2",

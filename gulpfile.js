@@ -279,7 +279,7 @@ function clean(done) {
 }
 
 function watch(done) {
-  gulp.watch('./src/sass/*.scss', gulp.series(sassDev, reload));
+  gulp.watch('./src/sass/**/*.scss', gulp.series(sassDev, reload));
   gulp.watch('./src/less/*.less', gulp.series(lessDev, reload));
   gulp.watch('./src/css/*.css', gulp.series(cssDev, reload));
   gulp.watch('./src/*.html', gulp.series(copyHtml, reload));
@@ -311,7 +311,7 @@ gulp.task(
   )
 );
 
-// // npm run build
+// npm run build
 gulp.task(
   'build',
   gulp.series(
