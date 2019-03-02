@@ -1,7 +1,7 @@
 {
   "name": "gulp-starter-app",
   "version": "1.0.0",
-  "description": "Gulp App Example",
+  "description": "Gulp App Application",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp dev",
