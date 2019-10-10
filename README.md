@@ -5,7 +5,7 @@
 Some basic Git commands are:
 
 ```
-$ git clone https://github.com/mohamedsamara/Gulp-Starter-App.git
+$ git clone https://github.com/mohamedsamara/gulp-starter-app.git
 $ cd project
 $ npm install
 
