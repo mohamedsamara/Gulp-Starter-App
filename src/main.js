@@ -1,7 +1,7 @@
 /**
  *
  * main.js
- * This is the entry file for the application, only render App component.
+ * This is the entry file for the application
  */
 
 import React from 'react';

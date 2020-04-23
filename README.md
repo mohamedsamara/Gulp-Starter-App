@@ -27,16 +27,20 @@ npm run watch
 
 - [Gulp](https://gulpjs.com/)
 
-- [React](https://reactjs.org/)
-
 - [Browserify](http://browserify.org/)
 
 - [BrowserSync](https://www.browsersync.io/)
 
-- [PostCSS](https://postcss.org/)
+- [React](https://reactjs.org/)
 
-- [SASS](https://sass-lang.com/)
+- [Redux](https://redux.js.org/)
 
-- [LESS](http://lesscss.org/)
+- [Redux Thunk](https://github.com/reduxjs/redux-thunk)
 
 - [Bootstrap](https://getbootstrap.com/)
+
+- [PostCSS](https://postcss.org/)
+
+- [Sass](https://sass-lang.com/)
+
+- [Less](http://lesscss.org/)

@@ -16,19 +16,16 @@
   },
   "keywords": [
     "gulp",
-    "4",
     "react",
     "redux",
     "redux-thunk",
     "react-router-dom",
     "es6",
     "sass",
-    "less",
-    "starter",
-    "boilerplate"
+    "less"
   ],
   "author": "Mohamed Samara (https://github.com/mohamedsamara)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mohamedsamara/gulp-starter-app/issues"
   },

@@ -1,6 +1,6 @@
 /*
  *
- * Todo
+ * Todo thunks
  *
  */
 
@@ -15,7 +15,7 @@ import {
 } from './actions';
 
 export function fetchTodos() {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     dispatch(checkTodos());
 
     return fetch('https://jsonplaceholder.typicode.com/todos', {
@@ -44,7 +44,7 @@ export function fetchTodos() {
 
 // Check Todos
 export function checkTodos() {
-  return function(dispatch, getState) {
+  return function (dispatch, getState) {
     if (getState().todo.todos.length == 0) {
       dispatch(fetchTodosRequest(true));
     }
