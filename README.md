@@ -13,15 +13,24 @@ $ npm install
 
 ## Start
 
-npm start
+```
+$ npm start
+
+```
 
 ## Simple build for production
 
-npm run build
+```
+$ npm run build
+
+```
 
 ## Watch all tasks & files
 
-npm run watch
+```
+$ npm run watch
+
+```
 
 ## Languages & tools
 
