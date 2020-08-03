@@ -8,28 +8,24 @@ Some basic Git commands are:
 $ git clone https://github.com/mohamedsamara/gulp-starter-app.git
 $ cd project
 $ npm install
-
 ```
 
 ## Start
 
 ```
 $ npm start
-
 ```
 
 ## Simple build for production
 
 ```
 $ npm run build
-
 ```
 
 ## Watch all tasks & files
 
 ```
 $ npm run watch
-
 ```
 
 ## Languages & tools
